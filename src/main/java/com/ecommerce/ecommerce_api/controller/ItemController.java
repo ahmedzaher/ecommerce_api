@@ -1,6 +1,8 @@
 package com.ecommerce.ecommerce_api.controller;
 
 import com.ecommerce.ecommerce_api.dto.ItemDto;
+import com.ecommerce.ecommerce_api.dto.ItemFilterDto;
+import com.ecommerce.ecommerce_api.dto.SearchItemDto;
 import com.ecommerce.ecommerce_api.service.ItemService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +27,15 @@ public class ItemController {
         return ResponseEntity.ok(itemService.findAll());
     }
 
+    @GetMapping("search")
+    public ResponseEntity<List<SearchItemDto>> searchItems(ItemFilterDto itemFilterDto) {
+        return ResponseEntity.ok(itemService.searchItems(itemFilterDto));
+    }
+
     @GetMapping("/{itemId}")
     public ResponseEntity<ItemDto> findById(@PathVariable Long itemId) {
-        Optional<ItemDto> Item = itemService.findById(itemId);
-        return Item.isPresent() ?
-                ResponseEntity.ok(Item.get()) : ResponseEntity.notFound().build();
+        Optional<ItemDto> item = itemService.findById(itemId);
+        return item.isPresent() ?
+                ResponseEntity.ok(item.get()) : ResponseEntity.notFound().build();
     }
 }

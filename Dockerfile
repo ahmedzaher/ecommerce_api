@@ -7,4 +7,4 @@ WORKDIR /opt/application
 
 COPY target/ecommerce_api.jar ./ecommerce_api.jar
 
-ENTRYPOINT ["java", "-jar", "xxecommerce_api.jar"]
+ENTRYPOINT ["java", "-jar", "ecommerce_api.jar"]

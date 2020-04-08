@@ -1,12 +1,11 @@
 package com.ecommerce.ecommerce_api.bootstrap;
 
-import com.ecommerce.ecommerce_api.dto.UserDto;
+import com.ecommerce.ecommerce_api.model.AuthUser;
 import com.ecommerce.ecommerce_api.model.Category;
 import com.ecommerce.ecommerce_api.model.Item;
 import com.ecommerce.ecommerce_api.model.User;
 import com.ecommerce.ecommerce_api.service.CartService;
 import com.ecommerce.ecommerce_api.service.CategoryService;
-import com.ecommerce.ecommerce_api.service.ItemService;
 import com.ecommerce.ecommerce_api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -42,13 +41,40 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void saveUsers() {
-        User u1 = new User("Albert Einstein");
-        User u2 = new User("Max Born");
-        User u3 = new User("Stephen Hawking");
+        final String password = "$2a$04$07X8/.GeXqaJeQhvUvg1yecyUOBbxDzFk3ZevSTt.q5WT8BTNtlmu"; // pass
+        final String userRole = "ROLE_USER";
+        AuthUser authUser1 = AuthUser.builder().username("albert")
+                .password(password) // pass
+                .roles(userRole)
+                .enabled(true)
+                .build();
+        User user1 = new User("Albert Einstein", authUser1);
 
-        userService.save(u1);
-        userService.save(u2);
-        userService.save(u3);
+        AuthUser authUser2 = AuthUser.builder().username("stephen")
+                .password(password)
+                .roles(userRole)
+                .enabled(true)
+                .build();
+        User user2 = new User("Stephen Hawking", authUser2);
+
+        AuthUser authUser3 = AuthUser.builder().username("max")
+                .password(password)
+                .roles(userRole)
+                .enabled(true)
+                .build();
+        User user3 = new User("Max Born", authUser3);
+
+        AuthUser authUser4 = AuthUser.builder().username("admin")
+                .password(password)
+                .roles("ROLE_ADMIN")
+                .enabled(true)
+                .build();
+        User user4 = new User("System Admin", authUser4);
+
+        userService.save(user1);
+        userService.save(user2);
+        userService.save(user3);
+        userService.save(user4);
     }
 
     private void savePhonesAndTablets() {

@@ -1,6 +1,7 @@
 package com.ecommerce.ecommerce_api.configuration;
 
 import com.ecommerce.ecommerce_api.model.AuthUser;
+import com.ecommerce.ecommerce_api.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ public class AuthUserDetails implements UserDetails {
     private String username;
     private String password;
     private List<GrantedAuthority> authorities;
+    private User systemUser;
     private boolean enabled;
 
     public AuthUserDetails(AuthUser user) {
@@ -25,6 +27,8 @@ public class AuthUserDetails implements UserDetails {
         this.authorities = Arrays.stream( user.getRoles().split(",") )
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+
+        this.systemUser = user.getSystemUser();
 
     }
 
@@ -61,5 +65,9 @@ public class AuthUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.enabled;
+    }
+
+    public User getSystemUser() {
+        return systemUser;
     }
 }

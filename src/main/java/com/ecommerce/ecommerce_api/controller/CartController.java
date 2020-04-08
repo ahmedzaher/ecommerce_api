@@ -1,16 +1,18 @@
 package com.ecommerce.ecommerce_api.controller;
 
+import com.ecommerce.ecommerce_api.configuration.AuthUserDetails;
 import com.ecommerce.ecommerce_api.dto.CartItemDto;
 import com.ecommerce.ecommerce_api.dto.UserCartDto;
+import com.ecommerce.ecommerce_api.model.User;
 import com.ecommerce.ecommerce_api.service.CartService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
@@ -27,14 +29,18 @@ public class CartController {
     }
 
     @GetMapping
-    public ResponseEntity<UserCartDto> getUserCart(@RequestParam("userId") Long userId) {
-        Optional<UserCartDto> cart = cartService.getUserCart(userId);
+    public ResponseEntity<UserCartDto> getUserCart() {
+        User user = ((AuthUserDetails)SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal()).getSystemUser();
+        Optional<UserCartDto> cart = cartService.getUserCart(user.getId());
         return cart.isPresent() ? ResponseEntity.ok(cart.get()) : ResponseEntity.notFound().build();
     }
 
     @PostMapping("item")
     public ResponseEntity<UserCartDto> addCartItem(@RequestBody CartItemDto cartItem) {
-        cartService.addItem(cartItem.getUserId(), cartItem.getItemId());
+        User user = ((AuthUserDetails)SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal()).getSystemUser();
+        cartService.addItem(user.getId(), cartItem.getItemId());
         return ResponseEntity.noContent().build();
     }
 

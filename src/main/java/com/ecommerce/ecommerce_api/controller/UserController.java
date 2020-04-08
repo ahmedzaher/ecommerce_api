@@ -1,10 +1,9 @@
 package com.ecommerce.ecommerce_api.controller;
 
-import com.ecommerce.ecommerce_api.dto.CategoryDto;
 import com.ecommerce.ecommerce_api.dto.UserDto;
-import com.ecommerce.ecommerce_api.service.CategoryService;
 import com.ecommerce.ecommerce_api.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("user")
+@Secured("ROLE_ADMIN")
 public class UserController {
 
     private UserService userService;

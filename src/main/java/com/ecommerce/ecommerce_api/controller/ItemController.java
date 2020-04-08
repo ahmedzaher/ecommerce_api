@@ -5,6 +5,7 @@ import com.ecommerce.ecommerce_api.dto.ItemFilterDto;
 import com.ecommerce.ecommerce_api.dto.SearchItemDto;
 import com.ecommerce.ecommerce_api.service.ItemService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("item")
+@Secured("ROLE_ADMIN")
 public class ItemController {
     private ItemService itemService;
 

@@ -27,8 +27,7 @@ public class User implements Serializable {
 
     private String name;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "cart_id")
+    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "user")
     private Cart cart;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)

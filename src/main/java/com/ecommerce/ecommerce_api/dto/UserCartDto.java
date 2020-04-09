@@ -11,12 +11,12 @@ import java.util.List;
 public class UserCartDto {
 
     private Long id;
-    private List<ItemDto> items;
+    private List<CartItemDto> items;
 
     public static UserCartDto of(Cart cart) {
         return UserCartDto.builder()
                 .id(cart.getId())
-                .items(ItemDto.of(cart.getItems()))
+                .items(CartItemDto.of(cart.getItems()))
                 .build();
     }
 }

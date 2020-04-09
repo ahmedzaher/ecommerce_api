@@ -42,7 +42,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
     }
 
     private static Predicate getItemSearchPredicate(ItemFilterDto filter, CriteriaBuilder criteriaBuilder,
-                                                    Root root) {
+                                                    Root<Item> root) {
         List<Predicate> predicates = new ArrayList<>();
 
         if (filter.getName() != null) {
@@ -63,6 +63,10 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
         } else if (filter.getMaxPrice() != null) {
             predicates.add(
                     criteriaBuilder.lessThanOrEqualTo(root.get("price"), filter.getMaxPrice()));
+        }
+        if(filter.getAvailable() != null) {
+            predicates.add(
+                    criteriaBuilder.isTrue(root.get("available")));
         }
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }

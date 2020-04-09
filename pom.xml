@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.ecommerce</groupId>
     <artifactId>ecommerce_api</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>ecommerce_api</name>
     <description>Demo project for Spring Boot</description>
 

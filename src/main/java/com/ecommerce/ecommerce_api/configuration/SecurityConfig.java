@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate").permitAll()
+                .authorizeRequests().antMatchers("/authenticate", "/store").permitAll()
                 .anyRequest().authenticated();
 
         httpSecurity.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);

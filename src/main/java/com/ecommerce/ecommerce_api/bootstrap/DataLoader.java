@@ -35,20 +35,21 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void saveCarts() {
-        this.cartService.addItem(1L, 1L);
-        this.cartService.addItem(1L, 2L);
+        this.cartService.addItem(2L, 1L);
+        this.cartService.addItem(2L, 2L);
         this.cartService.addItem(3L, 3L);
     }
 
     private void saveUsers() {
         final String password = "$2a$04$07X8/.GeXqaJeQhvUvg1yecyUOBbxDzFk3ZevSTt.q5WT8BTNtlmu"; // pass
         final String userRole = "ROLE_USER";
-        AuthUser authUser1 = AuthUser.builder().username("albert")
-                .password(password) // pass
-                .roles(userRole)
+
+        AuthUser authUser1 = AuthUser.builder().username("admin")
+                .password(password)
+                .roles("ROLE_ADMIN")
                 .enabled(true)
                 .build();
-        User user1 = new User("Albert Einstein", authUser1);
+        User user1 = new User("System Admin", authUser1);
 
         AuthUser authUser2 = AuthUser.builder().username("stephen")
                 .password(password)
@@ -64,12 +65,12 @@ public class DataLoader implements CommandLineRunner {
                 .build();
         User user3 = new User("Max Born", authUser3);
 
-        AuthUser authUser4 = AuthUser.builder().username("admin")
+        AuthUser authUser4 = AuthUser.builder().username("albert")
                 .password(password)
-                .roles("ROLE_ADMIN")
+                .roles(userRole)
                 .enabled(true)
                 .build();
-        User user4 = new User("System Admin", authUser4);
+        User user4 = new User("Albert Einstein", authUser4);
 
         userService.save(user1);
         userService.save(user2);

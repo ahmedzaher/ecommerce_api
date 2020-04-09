@@ -11,7 +11,6 @@ import java.util.List;
 public class CartItemDto {
 
     private Long itemId;
-    private Integer quantity;
     private String name;
     private String category;
 

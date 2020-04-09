@@ -40,8 +40,8 @@ public class CartController {
     public ResponseEntity<UserCartDto> addCartItem(@RequestBody CartItemDto cartItem) {
         User user = ((AuthUserDetails)SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal()).getSystemUser();
-        cartService.addItem(user.getId(), cartItem.getItemId());
-        return ResponseEntity.noContent().build();
+        UserCartDto cart = UserCartDto.of(cartService.addItem(user.getId(), cartItem.getItemId()));
+        return ResponseEntity.ok(cart);
     }
 
     @DeleteMapping("{cartId}/item/{itemId}")

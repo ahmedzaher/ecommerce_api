@@ -32,11 +32,11 @@ public class CartService {
                 Optional.of(UserCartDto.of(userCart.get())) : Optional.empty();
 
     }
-    public void addItem(Long userId, Long itemId) {
+    public Cart addItem(Long userId, Long itemId) {
         Cart userCart = cartRepository.getUserCart(userId).orElseGet(() -> createNewCart(userId));
         Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
         userCart.getItems().add(item);
-        cartRepository.save(userCart);
+        return cartRepository.save(userCart);
     }
 
     public boolean removeItem(Long cartId, Long itemId) {

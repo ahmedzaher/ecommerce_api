@@ -13,6 +13,7 @@ public class CartItemDto {
     private Long itemId;
     private String name;
     private String category;
+    private Float price;
 
     public static List<CartItemDto> of(List<Item> items) {
         List<CartItemDto> itemDtos = new ArrayList<>();
@@ -24,6 +25,7 @@ public class CartItemDto {
         return CartItemDto.builder()
                 .itemId(item.getId())
                 .name(item.getName())
+                .price(item.getPrice())
                 .category(item.getCategory().getName())
                 .build();
     }

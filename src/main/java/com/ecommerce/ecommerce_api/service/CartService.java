@@ -27,9 +27,8 @@ public class CartService {
     }
 
     public Optional<UserCartDto> getUserCart(Long userId) {
-        Optional<Cart> userCart = cartRepository.getUserCart(userId);
-        return userCart.isPresent() ?
-                Optional.of(UserCartDto.of(userCart.get())) : Optional.empty();
+        Cart userCart = cartRepository.getUserCart(userId).orElseGet(() -> createNewCart(userId));
+        return Optional.of(UserCartDto.of(userCart));
 
     }
     public Cart addItem(Long userId, Long itemId) {

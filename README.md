@@ -22,3 +22,14 @@ Simple Ecommerce API for basic operation
     
 * remove item from cart
     `curl  -H "Content-Type: application/json" -H "Authorization: Bearer <JWT> "  -X DELETE localhost:8080/cart/{cartId}/item/{itemId}`
+### Dockerizing API
+#### build image locally
+ `mvn jib:dockerBuild`
+     or `mvn clean package`
+    
+#### push image directly to DockerHub
+   `mvn jib:build` or `mvn clean install`
+
+
+### Web client
+    https://github.com/ahmedzaher/ecommerce_ui
